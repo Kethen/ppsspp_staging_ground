@@ -1,11 +1,14 @@
-FROM fedora:42
+FROM fedora:41
 
 # load rpm fusion for ffmpeg and mesa-va-drivers-freeworld
 RUN dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 RUN dnf install -y ffmpeg mesa-va-drivers-freeworld mesa-vulkan-drivers-freeworld ffmpeg-devel
 
+# install mesa drivers
+RUN dnf install -y mesa-dri-drivers
+
 # build dep as indicated
-RUN dnf install -y cmake mesa-libGL-devel sdl2-compat-devel SDL2_ttf-devel fontconfig-devel libcurl-devel glew-devel
+RUN dnf install -y cmake mesa-libGL-devel SDL2-devel SDL2_ttf-devel fontconfig-devel libcurl-devel glew-devel
 
 # gcc building
 RUN dnf install -y gcc g++ binutils-gold
